@@ -28,6 +28,10 @@ const openRouterProxy = createProxyMiddleware(proxyOptions);
 app.use(PROXY_BASE_PATH, openRouterProxy);
 console.log(`Proxy middleware mounted for path: ${PROXY_BASE_PATH}`);
 
+app.get("/", (_req, res) => {
+  res.status(200).send("Struggle for Y.");
+})
+
 app.get("/proxy-status", (_req, res) => {
   res.status(200).send("OpenRouter Proxy Server is running.");
 });
