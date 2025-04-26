@@ -13,18 +13,11 @@ const PROXY_BASE_PATH = process.env.PROXY_BASE_PATH;
 const proxyOptions = {
   target: TARGET_URL,
   changeOrigin: true,
-  pathRewrite: (path, _req) => {
-    const newPath = path.replace(PROXY_BASE_PATH, "/api/v1");
-    console.log(`Rewriting path from "${path}" to "${newPath}"`);
-    return newPath;
+  pathRewrite: (path, req) => {
+    console.log(`Rewrite path from '${req.originalUrl}' to ${path}`)
   },
   on: {
-    proxyReq: (proxyReq, req) => {
-      // TODO: Log request count and some other infos. DO NOT LOG AUTH TOKEN
-      console.log(
-        `[${new Date().toISOString()}] Proxying request: ${req.method} ${req.originalUrl} -> ${API_URL}${proxyReq.path}`,
-      );
-    },
+    proxyReq: (_proxyReq, _req, _res) => {},
     proxyRes: (_proxyRes, _req, _res) => {},
   },
   logLevel: "error",
@@ -43,7 +36,7 @@ app.listen(PORT, HOST, () => {
   console.log(`\nNode.js Proxy Server started.`);
   console.log(`Listening on: ${HOST}:${PORT}`);
   console.log(
-    `Proxying requests from '${PROXY_BASE_PATH}' to '${API_URL}/api/v1'`,
+    `Proxying requests from 'http(s)://${HOST}:${PORT}/${PROXY_BASE_PATH}' to ${TARGET_URL}`
   );
 });
 
