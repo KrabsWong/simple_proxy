@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  simple-proxy:
+    image: simple-proxy
+
+    container_name: simple-proxy
+    # host:container
+    ports:
+      - "3000:3000"
+
+    environment:
+      TARGET_URL: https://openrouter.ai
+      PROXY_PATH: /openrouter-api
