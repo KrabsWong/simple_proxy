@@ -10,5 +10,9 @@ services:
       - "3001:3001"
 
     environment:
+      PORT: 3001
+      HOST: 0.0.0.0
       TARGET_URL: https://openrouter.ai
       PROXY_PATH: /openrouter-api
+
+    restart: unless-stopped
