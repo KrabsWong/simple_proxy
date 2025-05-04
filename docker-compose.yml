@@ -13,8 +13,8 @@ services:
     environment:
       PORT: 3002
       HOST: "0.0.0.0"
-      TARGET_URL: "https://openrouter.ai"
+      OPENROUTER_URL: "https://openrouter.ai"
       # should start with /
-      PROXY_BASE_PATH: "/openrouter-api"
+      OPENROUTER_PATH: "/openrouter-api"
 
     restart: unless-stopped
