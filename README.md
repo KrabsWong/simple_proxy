@@ -4,7 +4,7 @@ Clone this repo, run `npm i` to install all the packages.
 
 Add `.env` file and type something as the example below
 
-<img width="200" alt="env_example" src="https://github.com/user-attachments/assets/eec80656-9b88-4a28-98c2-7114d8ab5fa9" />
+<img width="200" alt="env_example" src="https://github.com/user-attachments/assets/781b16f4-279e-4538-bf5c-748fdbebd9e0" />
 
 Run `node index.js` to start the server.
 
