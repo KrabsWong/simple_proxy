@@ -7,11 +7,12 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
-const TARGET_URL = process.env.TARGET_URL;
-const PROXY_BASE_PATH = process.env.PROXY_BASE_PATH;
+const OPENROUTER_URL = process.env.OPENROUTER_URL;
+const OPENROUTER_PATH = process.env.OPENROUTER_PATH;
 
-const proxyOptions = {
-  target: TARGET_URL,
+// Build proxy options based on the env settings
+const openRouterProxyOptions = {
+  target: OPENROUTER_URL,
   changeOrigin: true,
   pathRewrite: (path, req) => {
     console.log(`Rewrite path from '${req.originalUrl}' to ${path}`)
@@ -23,24 +24,29 @@ const proxyOptions = {
   logLevel: "error",
 };
 
-const openRouterProxy = createProxyMiddleware(proxyOptions);
+// const somethingElseProxyOptions = {}
 
-app.use(PROXY_BASE_PATH, openRouterProxy);
-console.log(`Proxy middleware mounted for path: ${PROXY_BASE_PATH}`);
+const openRouterProxy = createProxyMiddleware(openRouterProxyOptions);
+// Create proxy middleware for different proxy settings
+// const somethingElseProxySettings = createProxyMiddleware(openRouterProxyOptions);
+
+app.use(OPENROUTER_PATH, openRouterProxy);
+// app.use(OPENROUTER_PATH, openRouterProxy);
+console.log(`Proxy middleware mounted for path: ${OPENROUTER_PATH}`);
 
 app.get("/", (_req, res) => {
   res.status(200).send("Struggle for Y.");
 })
 
 app.get("/proxy-status", (_req, res) => {
-  res.status(200).send("OpenRouter Proxy Server is running.");
+  res.status(200).send("Proxy Server is running.");
 });
 
 app.listen(PORT, HOST, () => {
   console.log(`\nNode.js Proxy Server started.`);
   console.log(`Listening on: ${HOST}:${PORT}`);
   console.log(
-    `Proxying requests from 'http(s)://${HOST}:${PORT}/${PROXY_BASE_PATH}' to ${TARGET_URL}`
+    `Proxying requests from 'http(s)://${HOST}:${PORT}/${OPENROUTER_PATH}' to ${OPENROUTER_URL}`
   );
 });
 
